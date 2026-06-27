@@ -1,45 +1,22 @@
 package br.com.alura.domain;
 
-public class Agencia {
-    private Integer id;
-    private String nome;
-    private String razaoSocial;
-    private String cnpj;
-    private Endereco endereco;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.*;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public String getNome() {
-        return nome;
-    }
+@Entity
+public class Agencia extends PanacheEntity {
 
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
+    @Column(nullable = false)
+    public String nome;
 
-    public String getCnpj() {
-        return cnpj;
-    }
+    @Column(nullable = false, name = "razao_social")
+    public String razaoSocial;
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+    @Column(nullable = false)
+    public String cnpj;
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+    @OneToOne(targetEntity = Endereco.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    public Endereco endereco;
 }

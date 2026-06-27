@@ -1,29 +1,22 @@
 package br.com.alura.domain;
 
-public class Endereco {
-    private Integer id;
-    private String rua;
-    private String logradouro;
-    private String complemento;
-    private Integer numero;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.*;
 
-    public Integer getId() {
-        return id;
-    }
+import java.util.List;
 
-    public String getRua() {
-        return rua;
-    }
+@Entity
+public class Endereco extends PanacheEntity {
 
-    public String getLogradouro() {
-        return logradouro;
-    }
+    @Column(nullable = false)
+    public String rua;
 
-    public String getComplemento() {
-        return complemento;
-    }
+    @Column(nullable = false)
+    public String logradouro;
 
-    public Integer getNumero() {
-        return numero;
-    }
+    @Column(nullable = false)
+    public String complemento;
+
+    @Column(nullable = false)
+    public Integer numero;
 }

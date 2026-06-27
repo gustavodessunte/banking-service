@@ -1,7 +1,8 @@
 package br.com.alura.controller;
 
 import br.com.alura.domain.Agencia;
-import br.com.alura.service.http.AgenciaService;
+import br.com.alura.domain.dto.AgenciaDto;
+import br.com.alura.service.AgenciaService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
@@ -19,8 +20,8 @@ public class AgenciaController {
     }
 
     @POST
-    public RestResponse<Void> cadastrar(Agencia agencia, @Context UriInfo uriInfo) {
-        this.agenciaService.cadastrar(agencia);
+    public RestResponse<Void> cadastrar(AgenciaDto dto, @Context UriInfo uriInfo) {
+        this.agenciaService.cadastrar(dto);
         return RestResponse.created(uriInfo.getAbsolutePath());
     }
 
@@ -36,7 +37,7 @@ public class AgenciaController {
 
     @GET
     @Path("obter-por-id/{id}")
-    public RestResponse<Agencia> buscarPorId(@PathParam("id") int id) {
+    public RestResponse<Agencia> buscarPorId(@PathParam("id") Long id) {
         try{
             if (id <= 0) {
                 return RestResponse.status(400, "Id não pode ser menor ou igual a zero!");
@@ -72,7 +73,7 @@ public class AgenciaController {
 
     @PATCH
     public RestResponse<Agencia> atualizar(Agencia agencia) {
-        if(agencia == null || agencia.getId() <= 0) {
+        if(agencia == null) {
             return RestResponse.status(400, "Agência não deve ser nula e seu id deve ser maior que zero!");
         }
 
